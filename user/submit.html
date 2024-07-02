@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Application</title>
+    <link rel="stylesheet" href="maindash.css">
+</head>
+<body>
+    <?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header("Location: landing.html");
+        exit();
+    }
+    $user = $_SESSION['user'];
+    ?>
+    <header>
+        <div class="header-text" onclick="goToTop()">WELCOME TO ROJGAR SEWA</div>
+        <nav>
+            <a href="#" onclick="logout()">Logout</a>
+            <a href="#" onclick="loadContent('profile.html')">Profile</a>
+            <a href="#" onclick="loadContent('resume.html')">CV Generate</a>
+            <a href="#" onclick="loadContent('category.html')">Category</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Submit Your Application</h2>
+        <form action="submit_application.php" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" value="<?php echo $user['fullname']; ?>" readonly>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo $user['email']; ?>" readonly>
+            </div>
+            <div>
+                <label for="cv">Upload CV:</label>
+                <input type="file" id="cv" name="cv" required>
+            </div>
+            <div>
+                <label for="cover-letter">Cover Letter:</label>
+                <textarea id="cover-letter" name="cover_letter" rows="5" required></textarea>
+            </div>
+            <div>
+                <button type="submit">Submit Application</button>
+            </div>
+        </form>
+    </main>
+    <script>
+        function goToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function logout() {
+            fetch('logout.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'landing.html';
+                    }
+                })
+                .catch(error => console.error('Error logging out:', error));
+        }
+
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dynamic-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+    </script>
+</body>
+</html>

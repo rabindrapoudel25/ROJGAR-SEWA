@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Vacancies</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }  header {    width: 100%;
+            height: 1.5cm;
+            position: fixed;
+            top: 0;
+            background-image: url('image/IMAGE1.png'); /* Add the background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 20px;}
+  header-text {
+      font-size: 1.5em;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #555;
+      border-radius: 5px;
+    }
+    main {
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .job-listing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .job-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: auto;
+    }
+    .job-card h2 {
+      margin-top: 0;
+      color: crimson;
+    }
+    .job-card p {
+      margin: 5px 0;
+    }
+    .description {
+      margin: 10px 0;
+      flex-grow: 1;
+    }
+    .job-card button {
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      align-self: center;
+      margin-top: 10px;
+    }
+    .job-card button:hover {
+      background-color: #900;
+    }
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+      cursor: pointer;
+    }
+    .profile-image:hover {
+      transform: scale(1.5);
+    }
+    .job-details-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: absolute; /* Changed from fixed to absolute */
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Added background overlay */
+      z-index: 1000; /* Ensure it's on top */
+      padding-top: 60px; /* Added padding to avoid overlapping */
+    }
+    .job-details {
+      background-color: #fff;
+      border-radius: 10px;
+      border: 2px solid crimson; /* Crimson border for job details */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .back-btn {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    .back-btn:hover {
+      background-color: #900;
+    }
+    .job-title {
+      font-size: 20px; /* Set the job title font size */
+      color: crimson; /* Set the job title color to crimson */
+    }
+    .apply-btn-details {
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      align-self: center;
+      margin-top: 10px;
+    }
+    .apply-btn-details:hover {
+      background-color: #900;
+    }
+    .details-row {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .details-label {
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 5px;
+      }
+      .job-card {
+        padding: 15px;
+      }
+      .job-card button {
+        width: 100%;
+      }
+    }
+    @media (max-width: 480px) {
+      .header-text {
+        font-size: 1.2em;
+      }
+      nav a {
+        padding: 5px;
+      }
+      .job-card {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text" onclick="goToHomePage()">WELCOME TO ROJGAR SEWA</div>
+    <nav>
+      <a href="#">HOME</a>
+      <a href="jobs.html">JOB VACANCIES</a>
+      <a href="profile.html">PROFILE</a>
+      <a href="main.html">LOGOUT</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Job Vacancies</h1>
+    <div class="job-listing">
+      <!-- Job cards will be dynamically inserted here -->
+    </div>
+    <div class="job-details-container">
+      <div class="job-details">
+        <button class="back-btn">Back</button>
+        <img src="" alt="Profile Image" class="profile-image">
+        <h2 class="job-title"></h2>
+        <div class="details-row"><span class="details-label">Company:</span> <span class="company"></span></div>
+        <div class="details-row"><span class="details-label">Type of Business:</span> <span class="business-type"></span></div>
+        <div class="details-row"><span class="details-label">Location:</span> <span class="location"></span></div>
+        <div class="details-row"><span class="details-label">Salary:</span> <span class="salary"></span></div>
+        <div class="details-row"><span class="details-label">Education:</span> <span class="education"></span></div>
+        <div class="details-row"><span class="details-label">Experience:</span> <span class="experience"></span></div>
+        <div class="details-row"><span class="details-label">Vacancy End Date:</span> <span class="vacancy-end-date"></span></div>
+        <div class="details-row"><span class="details-label">Description:</span> <span class="job-description"></span></div>
+        <div class="details-row"><span class="details-label">Email:</span> <span class="business-email"></span></div>
+        <div class="details-row"><span class="details-label">Phone Number:</span> <span class="business-phone-number"></span></div>
+        <button class="apply-btn-details">Apply Now</button>
+      </div>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const jobListing = document.querySelector('.job-listing');
+      const jobDetailsContainer = document.querySelector('.job-details-container');
+      const jobDetails = document.querySelector('.job-details');
+      const backBtn = document.querySelector('.back-btn');
+      
+      fetch('fetch_jobs.php')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(job => {
+            const jobCard = document.createElement('div');
+            jobCard.className = 'job-card';
+            
+            jobCard.innerHTML = `
+              <h2>${job.jobTitle}</h2>
+              <p><strong>Company:</strong> ${job.company}</p>
+              <p><strong>Type of Business:</strong> ${job.businessType}</p>
+              <p><strong>Salary:</strong> ${job.salary}</p>
+              <p><strong>End Date:</strong> ${job.vacancyEndDate}</p>
+              <p class="description">${job.description}</p>
+              <button class="apply-btn">Apply Now</button>
+            `;
+
+            jobCard.querySelector('.apply-btn').addEventListener('click', () => {
+              displayJobDetails(job);
+            });
+
+            jobListing.appendChild(jobCard);
+          });
+        })
+        .catch(error => console.error('Error fetching job data:', error));
+
+      function displayJobDetails(job) {
+        jobListing.style.display = 'none';
+        jobDetailsContainer.style.display = 'flex';
+
+        const profileImage = jobDetails.querySelector('.profile-image');
+        profileImage.src = `../Business/uploads/${job.profileImage}`;
+
+        jobDetails.querySelector('.job-title').textContent = job.jobTitle;
+        jobDetails.querySelector('.company').textContent = job.company;
+        jobDetails.querySelector('.business-type').textContent = job.businessType;
+        jobDetails.querySelector('.location').textContent = `${job.city}, ${job.street}`;
+        jobDetails.querySelector('.salary').textContent = job.salary;
+        jobDetails.querySelector('.education').textContent = job.education;
+        jobDetails.querySelector('.experience').textContent = job.experience;
+        jobDetails.querySelector('.vacancy-end-date').textContent = job.vacancyEndDate;
+        jobDetails.querySelector('.job-description').textContent = job.description;
+        jobDetails.querySelector('.business-email').textContent = job.businessEmail;
+        jobDetails.querySelector('.business-phone-number').textContent = job.businessPhoneNumber;
+      }
+
+      backBtn.addEventListener('click', () => {
+        jobDetailsContainer.style.display = 'none';
+        jobListing.style.display = 'grid';
+      });
+
+      const applyBtnDetails = document.querySelector('.apply-btn-details');
+      applyBtnDetails.addEventListener('click', () => {
+        alert('Apply button clicked!');
+      });
+    });
+  </script>
+</body>
+</html>

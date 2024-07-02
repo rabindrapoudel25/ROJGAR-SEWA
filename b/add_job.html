@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Job</title>
+<style>
+/* CSS for Job Vacancy Form */
+
+/* Body background */
+body {
+  background-color: #8bc34a; /* green */
+  font-family: Arial, sans-serif;
+}
+
+/* Form container */
+.container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="date"],
+textarea {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background-color: #2196F3; /* blue */
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0d47a1; /* darker blue on hover */
+}
+</style>
+</head>
+<body>
+
+<!-- Job Vacancy Form -->
+<div class="container">
+    <h2>Add Job</h2>
+    <form method="post" action="submit_job.php" enctype="multipart/form-data">
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" required><br>
+        
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required><br>
+        
+        <label for="location">Location:</label><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br>
+        
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" required><br>
+        
+        <label for="salary">Salary:</label>
+        <input type="text" id="salary" name="salary"><br>
+        
+        <label for="education">Education:</label>
+        <input type="text" id="education" name="education"><br>
+        
+        <label for="experience">Experience:</label>
+        <input type="text" id="experience" name="experience"><br>
+        
+        <label for="vacancyEndDate">Vacancy End Date:</label>
+        <input type="date" id="vacancyEndDate" name="vacancyEndDate" required><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

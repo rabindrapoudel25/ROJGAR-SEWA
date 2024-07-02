@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Vacancies</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <h1>WELCOME TO ROJGAR SEWA</h1>
+    </header>
+    <main>
+        <div class="job-vacancies">
+            <h2>Job Vacancies</h2>
+            <div class="search-bar">
+                <input type="text" id="search-title" placeholder="Search by Job Title">
+                <input type="text" id="search-location" placeholder="Search by Location">
+                <button onclick="filterJobs()">Search</button>
+            </div>
+            <div class="job-listing"></div>
+        </div>
+        <div class="job-details-container" style="display:none;">
+            <button class="back-btn">Back</button>
+            <div class="job-details">
+                <img class="profile-image" src="" alt="Profile Image">
+                <h2 class="job-title"></h2>
+                <p><strong>Company:</strong> <span class="company"></span></p>
+                <p><strong>Type of Business:</strong> <span class="business-type"></span></p>
+                <p><strong>Location:</strong> <span class="location"></span></p>
+                <p><strong>Salary:</strong> <span class="salary"></span></p>
+                <p><strong>Open Date:</strong> <span class="vacancy-open-date"></span></p>
+                <p><strong>End Date:</strong> <span class="vacancy-end-date"></span></p>
+                <p class="job-description"></p>
+                <p><strong>Email:</strong> <span class="business-email"></span></p>
+                <p><strong>Phone:</strong> <span class="business-phone-number"></span></p>
+                <button class="apply-btn-details">Apply Now</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const jobListing = document.querySelector('.job-listing');
+            const jobDetailsContainer = document.querySelector('.job-details-container');
+            const jobDetails = document.querySelector('.job-details');
+            const backBtn = document.querySelector('.back-btn');
+            let allJobs = [];
+
+            fetch('fetch_jobs.php')
+                .then(response => response.json())
+                .then(data => {
+                    allJobs = data;
+                    displayJobs(allJobs);
+                })
+                .catch(error => console.error('Error fetching job data:', error));
+
+            function displayJobs(jobs) {
+                jobListing.innerHTML = '';
+                jobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'job-card';
+                    
+                    jobCard.innerHTML = `
+                        <h2>${job.title}</h2>
+                        <p><strong>Company:</strong> ${job.company}</p>
+                        <p><strong>Type of Business:</strong> ${job.businessType}</p>
+                        <p><strong>Location:</strong> ${job.location}</p>
+                        <p><strong>Salary:</strong> ${job.salary}</p>
+                        <p><strong>Open Date:</strong> ${job.dateOpen}</p>
+                        <p><strong>End Date:</strong> ${job.dateEnd}</p>
+                        <p class="description">${job.description}</p>
+                        <button class="apply-btn">Apply Now</button>
+                    `;
+
+                    jobCard.querySelector('.apply-btn').addEventListener('click', () => {
+                        displayJobDetails(job);
+                    });
+
+                    jobListing.appendChild(jobCard);
+                });
+            }
+
+            function displayJobDetails(job) {
+                jobListing.style.display = 'none';
+                jobDetailsContainer.style.display = 'flex';
+
+                const profileImage = jobDetails.querySelector('.profile-image');
+                profileImage.src = `../Business/uploads/${job.profileImage}`;
+
+                jobDetails.querySelector('.job-title').textContent = job.title;
+                jobDetails.querySelector('.company').textContent = job.company;
+                jobDetails.querySelector('.business-type').textContent = job.businessType;
+                jobDetails.querySelector('.location').textContent = job.location;
+                jobDetails.querySelector('.salary').textContent = job.salary;
+                jobDetails.querySelector('.vacancy-open-date').textContent = job.dateOpen;
+                jobDetails.querySelector('.vacancy-end-date').textContent = job.dateEnd;
+                jobDetails.querySelector('.job-description').textContent = job.description;
+                jobDetails.querySelector('.business-email').textContent = job.businessEmail;
+                jobDetails.querySelector('.business-phone-number').textContent = job.businessPhoneNumber;
+            }
+
+            backBtn.addEventListener('click', () => {
+                jobDetailsContainer.style.display = 'none';
+                jobListing.style.display = 'grid';
+            });
+
+            const applyBtnDetails = document.querySelector('.apply-btn-details');
+            applyBtnDetails.addEventListener('click', () => {
+                alert('Apply button clicked!');
+            });
+
+            window.filterJobs = function() {
+                const searchTitle = document.getElementById('search-title').value.toLowerCase();
+                const searchLocation = document.getElementById('search-location').value.toLowerCase();
+
+                const filteredJobs = allJobs.filter(job => {
+                    const jobTitleMatch = job.title.toLowerCase().includes(searchTitle);
+                    const locationMatch = job.location.toLowerCase().includes(searchLocation);
+                    
+                    return jobTitleMatch && locationMatch;
+                });
+
+                displayJobs(filteredJobs);
+            }
+        });
+    </script>
+</body>
+</html>

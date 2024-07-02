@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Vacancies</title>
+    <link rel="stylesheet" href="maindash.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>Job Portal</h1>
+        </div>
+    </header>
+    <main>
+        <div class="job-vacancies">
+            <h2>Job Vacancies</h2>
+            <div class="search-bar">
+                <input type="text" id="search-title" placeholder="Search by Job Title">
+                <input type="text" id="search-location" placeholder="Search by Location">
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="job-listing" id="job-listing">
+                <!-- Job cards will be dynamically added here -->
+            </div>
+            <div class="job-details-container" id="job-details-container" style="display: none;">
+                <button class="back-btn" id="back-btn">Back to Listings</button>
+                    <div class="job-details" id="job-details" data-job-post-id="<JOB_POST_ID>"></div>
+                    <!-- Job details will be dynamically added here -->
+                </div>
+                <button class="apply-btn" id="apply-btn-details">Apply Now</button>
+                <div class="apply-form" id="apply-form" style="display: none;">
+                    <input type="text" id="applicant-name" placeholder="Your Name">
+                    <input type="email" id="applicant-email" placeholder="Your Email">
+                    <textarea id="cover-letter" placeholder="Cover Letter"></textarea>
+                    <input type="file" id="cv-upload"  placeholder="CV UPLOAD"accept=".pdf,.doc,.docx">
+                    <button class="submit-application-btn" id="submit-application-btn">Submit Application</button>
+                    <div class="success-message" id="success-message" style="display: none;">
+                        Thank you for your application! Please visit the office on the interview date and time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="maindash.js"></script>
+</body>
+</html>

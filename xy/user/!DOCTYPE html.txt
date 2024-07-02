@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search Website</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: crimson; /* Make all text crimson */
+      position: relative;
+      overflow: hidden; /* Prevent scrollbars due to pseudo-element */
+    }
+    body::before {
+      content: "";
+      background-image: url("image/IMAGE3.jpg"); /* Background image */
+      background-size: cover; /* Ensure the image covers the whole background */
+      background-position: center;
+      background-repeat: no-repeat;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.2; /* Adjust opacity here */
+      z-index: -1; /* Ensure it is behind the content */
+    }
+    header {
+      background-image: url("image/IMAGE1.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 2cm;
+      padding: 0 20px;
+      position: relative;
+    }
+    .header-text {
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+      margin-left: auto; /* Align nav to the right */
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .search-bar-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .search-bar {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      padding: 10px;
+      margin: 0 10px;
+    }
+    .search-bar input[type="text"] {
+      width: 200px;
+      padding: 8px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+    .search-bar button {
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">WELCOME TO ROJGAR SEWA</div>
+    <nav>
+      <a href="user/index.html">CV DETAILS</a>
+      <a href="Business/indexbusiness.html">PROFILE</a>
+      <a href="Business/indexbusiness.html">LOGOUT</a>
+    </nav>
+  </header>
+  <div class="search-bar-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search by location">
+      <button>Search</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search by job title">
+      <button>Search</button>
+    </div>
+  </div>
+</body>
+</html>
+

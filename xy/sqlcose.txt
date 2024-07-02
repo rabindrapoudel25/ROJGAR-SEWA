@@ -1,0 +1,103 @@
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    businessName VARCHAR(255) NOT NULL,
+    businessAddress VARCHAR(255) NOT NULL,
+    businessType VARCHAR(255) NOT NULL,
+    businessEmail VARCHAR(255) NOT NULL,
+    businessPan VARCHAR(20) NOT NULL,
+    businessPhoneNumber VARCHAR(15) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    panDocument VARCHAR(255) NOT NULL,
+    profileImage VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE rojgharcostumer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Fullname VARCHAR(255) NOT NULL,
+    Address VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(15) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+User
+CREATE TABLE addjob (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    jobTitle VARCHAR(255) NOT NULL,
+    requiredCandidate INT NOT NULL,
+    salaryType ENUM('negotiable', 'specificAmount') NOT NULL,
+    salaryAmount DECIMAL(10, 2),
+    education VARCHAR(255) NOT NULL,
+    experience VARCHAR(255) NOT NULL,
+    vacancyEndDate DATE NOT NULL,
+    description TEXT NOT NULL
+
+);
+
+SQL Code:
+sql
+Copy code
+-- Create the 'users' table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    businessName VARCHAR(255) NOT NULL,
+    businessAddress VARCHAR(255) NOT NULL,
+    businessType VARCHAR(255) NOT NULL,
+    businessEmail VARCHAR(255) NOT NULL UNIQUE,
+    businessPan VARCHAR(255) NOT NULL UNIQUE,
+    businessPhoneNumber VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    panDocument VARCHAR(255) NOT NULL,
+    profileImage VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the 'job_vacancies' table
+CREATE TABLE job_vacancies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    jobTitle VARCHAR(255) NOT NULL,
+    company VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    salary VARCHAR(255) NOT NULL,
+    education VARCHAR(255) NOT NULL,
+    experience VARCHAR(255) NOT NULL,
+    vacancyEndDate DATE NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);SQL Code:
+sql
+Copy code
+-- Create the 'users' table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    businessName VARCHAR(255) NOT NULL,
+    businessAddress VARCHAR(255) NOT NULL,
+    businessType VARCHAR(255) NOT NULL,
+    businessEmail VARCHAR(255) NOT NULL UNIQUE,
+    businessPan VARCHAR(255) NOT NULL UNIQUE,
+    businessPhoneNumber VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    panDocument VARCHAR(255) NOT NULL,
+    profileImage VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the 'job_vacancies' table
+CREATE TABLE job_vacancies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    jobTitle VARCHAR(255) NOT NULL,
+    company VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    salary VARCHAR(255) NOT NULL,
+    education VARCHAR(255) NOT NULL,
+    experience VARCHAR(255) NOT NULL,
+    vacancyEndDate DATE NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

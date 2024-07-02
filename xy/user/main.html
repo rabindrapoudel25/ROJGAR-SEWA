@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Vacancies</title>
+    <link rel="stylesheet" href="maindash.css">
+</head>
+<body>
+    <?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header("Location: index.html");
+        exit();
+    }
+    ?>
+    <header>
+        <div class="header-text" onclick="goToTop()">WELCOME TO ROJGAR SEWA</div>
+        <nav>
+            <a href="#" onclick="logout()">Logout</a>
+            <a href="#" onclick="loadContent('profile.php')">Profile</a>
+            <a href="#" onclick="openResume()">CV Generate</a>
+            <a href="#" onclick="loadContent('category.html')">Category</a>
+        </nav>
+    </header>
+    <main>
+        <div class="job-vacancies">
+            <h2>Job Vacancies</h2>
+            <div class="search-container">
+                <input type="text" id="search-title" placeholder="Search by Job Title">
+                <input type="text" id="search-location" placeholder="Search by Location">
+                <button onclick="filterJobs()">Search</button>
+                <button class="back-search-btn" style="display: none;" onclick="clearSearch()">Back</button>
+            </div>
+            <div class="job-listing"></div>
+        </div>
+        <div class="job-details-container" style="display:none;">
+            <div class="job-details">
+                <button class="back-btn">&#x2716;</button>
+                <img class="profile-image" src="" alt="Profile Image">
+                <h2 class="job-title"></h2>
+                <p><strong>Company:</strong> <span class="company"></span></p>
+                <p><strong>Type of Business:</strong> <span class="business-type"></span></p>
+                <p><strong>Location:</strong> <span class="location"></span></p>
+                <p><strong>Salary:</strong> <span class="salary"></span></p>
+                <p><strong>Open Date:</strong> <span class="vacancy-open-date"></span></p>
+                <p><strong>End Date:</strong> <span class="vacancy-end-date"></span></p>
+                <p class="job-description"></p>
+                <p><strong>Email:</strong> <span class="business-email"></span></p>
+                <p><strong>Phone:</strong> <span class="business-phone-number"></span></p>
+                <button class="apply-btn-details">Apply Now</button>
+            </div>
+            <div class="application-form" style="display:none;">
+                <h2>Application Form</h2>
+                <form id="apply-form" action="submit_application.php" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="coverletter" placeholder="Cover Letter" required></textarea>
+                    <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+        <div id="dynamic-content"></div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const jobListing = document.querySelector('.job-listing');
+            const jobDetailsContainer = document.querySelector('.job-details-container');
+            const jobDetails = document.querySelector('.job-details');
+            const applicationForm = document.querySelector('.application-form');
+            const backBtn = document.querySelector('.back-btn');
+            const backSearchBtn = document.querySelector('.back-search-btn');
+            let allJobs = [];
+
+            fetch('fetch_jobs.php')
+                .then(response => response.json())
+                .then(data => {
+                    allJobs = data;
+                    displayJobs(allJobs);
+                })
+                .catch(error => console.error('Error fetching job data:', error));
+
+            function displayJobs(jobs) {
+                jobListing.innerHTML = '';
+                jobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'job-card';
+                    
+                    jobCard.innerHTML = `
+                        <h2>${job.title}</h2>
+                        <p><strong>Company:</strong> ${job.company}</p>
+                        <p><strong>Type of Business:</strong> ${job.businessType}</p>
+                        <p><strong>Location:</strong> ${job.location}</p>
+                        <p><strong>Salary:</strong> ${job.salary}</p>
+                        <p><strong>Open Date:</strong> ${job.dateOpen}</p>
+                        <p><strong>End Date:</strong> ${job.dateEnd}</p>
+                        <p class="description">${job.description}</p>
+                        <button class="apply-btn">Apply Now</button>
+                    `;
+
+                    jobCard.querySelector('.apply-btn').addEventListener('click', () => {
+                        displayJobDetails(job);
+                    });
+
+                    jobListing.appendChild(jobCard);
+                });
+            }
+
+            function displayJobDetails(job) {
+                jobListing.style.display = 'none';
+                jobDetailsContainer.style.display = 'flex';
+                applicationForm.style.display = 'none';
+
+                const profileImage = jobDetails.querySelector('.profile-image');
+                profileImage.src = `../Business/uploads/${job.profileImage}`;
+
+                jobDetails.querySelector('.job-title').textContent = job.title;
+                jobDetails.querySelector('.company').textContent = job.company;
+                jobDetails.querySelector('.business-type').textContent = job.businessType;
+                jobDetails.querySelector('.location').textContent = job.location;
+                jobDetails.querySelector('.salary').textContent = job.salary;
+                jobDetails.querySelector('.vacancy-open-date').textContent = job.dateOpen;
+                jobDetails.querySelector('.vacancy-end-date').textContent = job.dateEnd;
+                jobDetails.querySelector('.job-description').textContent = job.description;
+                jobDetails.querySelector('.business-email').textContent = job.businessEmail;
+                jobDetails.querySelector('.business-phone-number').textContent = job.businessPhoneNumber;
+            }
+
+            backBtn.addEventListener('click', () => {
+                jobDetailsContainer.style.display = 'none';
+                jobListing.style.display = 'grid';
+            });
+
+            const applyBtnDetails = document.querySelector('.apply-btn-details');
+            applyBtnDetails.addEventListener('click', () => {
+                jobDetails.style.display = 'none';
+                applicationForm.style.display = 'block';
+            });
+
+            window.filterJobs = function() {
+                const searchTitle = document.getElementById('search-title').value.toLowerCase();
+                const searchLocation = document.getElementById('search-location').value.toLowerCase();
+
+                const filteredJobs = allJobs.filter(job => {
+                    const jobTitleMatch = job.title.toLowerCase().includes(searchTitle);
+                    const locationMatch = job.location.toLowerCase().includes(searchLocation);
+                    
+                    return jobTitleMatch && locationMatch;
+                });
+
+                displayJobs(filteredJobs);
+                backSearchBtn.style.display = 'inline-block';
+            }
+
+            window.clearSearch = function() {
+                displayJobs(allJobs);
+                document.getElementById('search-title').value = '';
+                document.getElementById('search-location').value = '';
+                backSearchBtn.style.display = 'none';
+            }
+
+            window.goToTop = function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+
+            window.logout = function() {
+                fetch('logout.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = 'landing.html';
+                        }
+                    })
+                    .catch(error => console.error('Error logging out:', error));
+            }
+
+            window.loadContent = function(page) {
+                fetch(page)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('dynamic-content').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error loading content:', error));
+            }
+
+            window.openResume = function() {
+                window.open('resume.html', '_blank');
+            }
+        });
+    </script>
+</body>
+</html>

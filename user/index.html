@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Form</title>
+    <link rel="stylesheet" href="logincss.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        header {
+            width: 100%;
+            height: 2.5cm;
+            position: fixed;
+            top: 0;
+            background-image: url('image/IMAGE1.png'); /* Add the background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+
+        .header-text {
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        .container {
+            width: 26cm;
+            height: 14cm;
+            background-color:crimson;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            margin-top: 3cm; /* Add a margin-top of 3 cm */
+        }
+
+        .form-container, .image-container {
+            width: 50%;
+            height: 100%;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .image-container {
+            background-image: url('image/image.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .form {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .form h2 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-container img {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form button {
+            width: 100%;
+            padding: 10px;
+            background-color:blue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .form button:hover {
+            background-color:blue;
+        }
+
+        .form a {
+            margin-top: 10px;
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .form a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-form {
+            display: none;
+        }
+
+        .container.signup-active .image-container {
+            order: -1;
+        }
+
+        .container.signup-active .login-form {
+            display: none;
+        }
+
+        .container.signup-active .signup-form {
+            display: flex;
+        }
+
+        .gender-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                width: 100%;
+                max-width: none;
+            }
+
+            .form-container, .image-container {
+                width: 100%;
+                height: 300px;
+            }
+
+            .container.signup-active .image-container {
+                order: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form {
+                width: 100%;
+                max-width: none;
+                padding: 0 20px;
+            }
+
+            .input-container img {
+                width: 16px;
+                height: 16px;
+            }
+
+            .form input {
+                padding: 10px 10px 10px 36px;
+            }
+
+            .form button {
+                padding: 10px;
+            }
+
+            .gender-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-text">WELCOME TO ROJGAR SEWA</div>
+        <nav>
+            <a href="user/index.html">HOME</a>
+        </nav>
+    </header>
+    <div class="container" id="container">
+        <div class="form-container">
+            <!-- Login Form -->
+            <form class="form login-form" action="login.php" method="post">
+                <h2>Login</h2>
+                <div class="input-container">
+                    <img src="image/email.png" alt="Email Icon">
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="input-container">
+                    <img src="image/password.png" alt="Password Icon">
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+                <a href="#" id="signup-link">Not registered yet? Sign up here</a>
+            </form>
+            
+            <!-- Signup Form -->
+            <form class="form signup-form" action="signup.php" method="post">
+                <h2>Sign Up</h2>
+                <div class="input-container">
+                    <img src="image/name.png" alt="User Icon">
+                    <input type="text" placeholder="Full Name" name="fullname" pattern="^[A-Za-z]{5,}(?:\s[A-Za-z]{1,5}){0,3}$" required title="Full Name should contain only alphabets, minimum 5 characters per word, no more than 3 spaces.">
+                </div>
+                <div class="input-container">
+                    <img src="image/email.png" alt="Email Icon">
+                    <input type="email" placeholder="Email" name="signup-email" required>
+                </div>
+                <div class="input-container">
+                    <img src="image/password.png" alt="Password Icon">
+                    <input type="password" placeholder="Password" name="signup-password" required>
+                </div>
+                <div class="input-container">
+                    <img src="image/password.png" alt="Password Icon">
+                    <input type="password" placeholder="Confirm Password" name="signup-confirm-password" required>
+                </div>
+                <div class="input-container">
+                    <img src="image/phone.png" alt="Phone Icon">
+                    <input type="text" placeholder="Phone Number" name="signup-phone" pattern="\d{10}" required title="Phone number should be 10 digits.">
+                </div>
+                <div class="gender-container">
+                    <label>Gender:</label>
+                    <input type="radio" name="gender" value="male" required> Male
+                    <input type="radio" name="gender" value="female" required> Female
+                    <input type="radio" name="gender" value="other" required> Other
+                </div>
+                <button type="submit">Sign Up</button>
+                <a href="#" id="login-link">Already have an account? Login here</a>
+            </form>
+        </div>
+        <div class="image-container"></div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

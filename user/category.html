@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Categories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(13, 1fr); /* 13 columns */
+            gap: 0.1cm; /* Reduced gap between cards */
+            padding: 0.5cm; /* Padding around the grid */
+            width: 100vw; /* Full viewport width */
+            box-sizing: border-box;
+        }
+
+        .category-card {
+            background-color: #fff; /* White background */
+            color: black;
+            width: 2.5cm; /* Increased card width */
+            height: 3cm; /* Increased card height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 8px;
+            padding: 0.2rem; /* Reduced padding */
+            box-sizing: border-box;
+            border: 1px solid #ccc; /* Border for better visibility */
+        }
+
+        .category-card i {
+            font-size: 1.2rem; /* Adjusted icon size */
+            margin-bottom: 0.1rem;
+        }
+
+        .category-card h3 {
+            font-size: 0.6rem; /* Adjusted font size */
+            margin: 0;
+            line-height: 1rem; /* Adjusted line height */
+            word-wrap: break-word; /* Ensure text wraps */
+        }
+    </style>
+</head>
+<body>
+    <div class="categories">
+        <div class="category-card">
+            <i class="fa fa-calculator"></i>
+            <h3>Accounting / Finance</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-user-tie"></i>
+            <h3>Administrative / Office Support</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-bullhorn"></i>
+            <h3>Advertising / Arts / Media</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-tools"></i>
+            <h3>Construction / Trades / Manufacturing</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-headset"></i>
+            <h3>Customer Service / Sales</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-chalkboard-teacher"></i>
+            <h3>Education / Training</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-cogs"></i>
+            <h3>Engineering / Technology</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-heartbeat"></i>
+            <h3>Healthcare / Medical</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-hotel"></i>
+            <h3>Hospitality / Tourism</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-user-friends"></i>
+            <h3>Human Resources / Recruitment</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-gavel"></i>
+            <h3>Legal / Compliance</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-bullhorn"></i>
+            <h3 style="font-size: 0.55rem;">Marketing / Communications / Content Creation</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-building"></i>
+            <h3>Real Estate</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-store"></i>
+            <h3>Retail / Customer Service</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-flask"></i>
+            <h3>Science / Research</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-truck"></i>
+            <h3>Transportation / Logistics</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-leaf"></i>
+            <h3>Environmental / Agriculture</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-tshirt"></i>
+            <h3>Fashion / Design</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-utensils"></i>
+            <h3>Food Service / Culinary Arts</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-university"></i>
+            <h3>Government / Public Administration</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-hand-holding-heart"></i>
+            <h3>Non-Profit / Social Services</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-football-ball"></i>
+            <h3>Sports / Recreation</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-wifi"></i>
+            <h3 style="font-size: 0.55rem;">Telecommunications / IT</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-plug"></i>
+            <h3>Utilities / Energy</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-warehouse"></i>
+            <h3>Warehouse / Distribution</h3>
+        </div>
+        <div class="category-card">
+            <i class="fa fa-ellipsis-h"></i>
+            <h3>Other</h3>
+        </div>
+    </div>
+</body>
+</html>
+

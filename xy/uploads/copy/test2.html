@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder</title>
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #00796b;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 5px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .input-group textarea {
+            resize: vertical;
+        }
+        .remove-button {
+            background-color: #e53935;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+        .add-button, .save-button {
+            background-color: #43a047;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        .add-button:hover, .save-button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CV Builder</h1>
+
+        <div class="section" id="personal-info">
+            <div class="section-title">Personal Information</div>
+            <div class="input-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="input-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address">
+            </div>
+        </div>
+
+        <div class="section" id="education-section">
+            <div class="section-title">Education</div>
+        </div>
+        <button type="button" class="add-button" onclick="addEducationField()">Add More Education</button>
+
+        <div class="section" id="skills-section">
+            <div class="section-title">Skills</div>
+        </div>
+        <button type="button" class="add-button" onclick="addSkillField()">Add More Skills</button>
+
+        <div class="section" id="projects-section">
+            <div class="section-title">Projects</div>
+        </div>
+        <button type="button" class="add-button" onclick="addProjectField()">Add More Projects</button>
+
+        <div class="section" id="extracurricular-section">
+            <div class="section-title">Extracurricular Activities</div>
+        </div>
+        <button type="button" class="add-button" onclick="addExtracurricularField()">Add More Activities</button>
+
+        <button type="button" class="save-button" onclick="saveAsPDF()">Save as PDF</button>
+    </div>
+
+    <script>
+        function addEducationField() {
+            const educationSection = document.getElementById('education-section');
+            const educationGroup = document.createElement('div');
+            educationGroup.className = 'education-group';
+            educationGroup.innerHTML = `
+                <div class="input-group">
+                    <label for="degree">Degree:</label>
+                    <input type="text" name="degree[]">
+                </div>
+                <div class="input-group">
+                    <label for="institution">Institution:</label>
+                    <input type="text" name="institution[]">
+                </div>
+                <div class="input-group">
+                    <label for="year">Year:</label>
+                    <input type="text" name="year[]">
+                </div>
+                <button type="button" class="remove-button" onclick="removeField(this)">Remove</button>
+            `;
+            educationSection.appendChild(educationGroup);
+        }
+
+        function addSkillField() {
+            const skillsSection = document.getElementById('skills-section');
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group';
+            inputGroup.innerHTML = `
+                <label for="skill">Skill:</label>
+                <input type="text" name="skills[]">
+                <button type="button" class="remove-button" onclick="removeField(this)">Remove</button>
+            `;
+            skillsSection.appendChild(inputGroup);
+        }
+
+        function addProjectField() {
+            const projectsSection = document.getElementById('projects-section');
+            const projectGroup = document.createElement('div');
+            projectGroup.className = 'project-group';
+            projectGroup.innerHTML = `
+                <div class="input-group">
+                    <label for="project-title">Project Title:</label>
+                    <input type="text" name="project_title[]">
+                </div>
+                <div class="input-group">
+                    <label for="project-description">Description:</label>
+                    <textarea name="project_description[]"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="project-link">Link:</label>
+                    <input type="url" name="project_link[]">
+                </div>
+                <button type="button" class="remove-button" onclick="removeField(this)">Remove</button>
+            `;
+            projectsSection.appendChild(projectGroup);
+        }
+
+        function addExtracurricularField() {
+            const extracurricularSection = document.getElementById('extracurricular-section');
+            const extracurricularGroup = document.createElement('div');
+            extracurricularGroup.className = 'extracurricular-group';
+            extracurricularGroup.innerHTML = `
+                <div class="input-group">
+                    <label for="activity">Activity:</label>
+                    <input type="text" name="activity[]">
+                </div>
+                <div class="input-group">
+                    <label for="description">Description:</label>
+                    <textarea name="activity_description[]"></textarea>
+                </div>
+                <button type="button" class="remove-button" onclick="removeField(this)">Remove</button>
+            `;
+            extracurricularSection.appendChild(extracurricularGroup);
+        }
+
+        function removeField(button) {
+            button.parentElement.remove();
+        }
+
+        function saveAsPDF() {
+            const element = document.querySelector('.container');
+            const opt = {
+                margin:       1,
+                filename:     'cv_' + new Date().getTime() + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</body>
+</html>

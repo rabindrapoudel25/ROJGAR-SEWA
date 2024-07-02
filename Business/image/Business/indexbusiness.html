@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Login and Signup</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        async function handleSignup(event) {
+            event.preventDefault();
+            if (!validateForm()) return;
+
+            const form = document.getElementById('signupForm');
+            const formData = new FormData(form);
+
+            const response = await fetch('signup.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.success) {
+                window.location.href = 'indexbusiness.html';
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('loginForm');
+            const formData = new FormData(form);
+
+            const response = await fetch('login.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.success) {
+                window.location.href = 'main.html';
+            }
+        }
+
+        function validateForm() {
+            const businessName = document.getElementById('businessName').value;
+            const businessAddress = document.getElementById('businessAddress').value;
+            const businessEmail = document.getElementById('businessEmail').value;
+            const businessPan = document.getElementById('businessPan').value;
+            const businessPhoneNumber = document.getElementById('businessPhoneNumber').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^(0|9)\d{9}$/;
+            const panRegex = /^\d{5,10}$/;
+
+            if (businessName.length < 5) {
+                alert("Business name must be at least 5 characters long.");
+                return false;
+            }
+            if (businessAddress.length < 5) {
+                alert("Address must be at least 5 characters long.");
+                return false;
+            }
+            if (!emailRegex.test(businessEmail)) {
+                alert("Invalid email format.");
+                return false;
+            }
+            if (!phoneRegex.test(businessPhoneNumber)) {
+                alert("Phone number must be 10 digits long and start with 0 or 9.");
+                return false;
+            }
+            if (!panRegex.test(businessPan)) {
+                alert("PAN number must be between 5 and 10 digits long.");
+                return false;
+            }
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+            document.getElementById("showSignup").addEventListener("click", function() {
+                document.getElementById("loginFormContainer").classList.add("hidden");
+                document.getElementById("signupFormContainer").classList.remove("hidden");
+            });
+
+            document.getElementById("showLogin").addEventListener("click", function() {
+                document.getElementById("signupFormContainer").classList.add("hidden");
+                document.getElementById("loginFormContainer").classList.remove("hidden");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" id="loginFormContainer">
+            <h2>Business Login</h2>
+            <form id="loginForm">
+                <input type="email" name="email" placeholder="Email" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <input type="submit" value="Login">
+            </form>
+            <p>Not yet registered? <a href="#" id="showSignup">Register here</a></p>
+        </div>
+        <div class="form-container hidden" id="signupFormContainer">
+            <h2>Business Signup</h2>
+            <form id="signupForm" enctype="multipart/form-data">
+                <input type="text" name="businessName" id="businessName" placeholder="Business Name" required><br>
+                <input type="text" name="businessAddress" id="businessAddress" placeholder="Business Address" required><br>
+                <input type="text" name="businessType" placeholder="Type of Business" required><br>
+                <input type="email" name="businessEmail" id="businessEmail" placeholder="Business Email" required><br>
+                <input type="text" name="businessPan" id="businessPan" placeholder="Business PAN" required><br>
+                <input type="text" name="businessPhoneNumber" id="businessPhoneNumber" placeholder="Business Phone Number" required><br>
+                <input type="password" name="password" id="password" placeholder="Password" required><br>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required><br>
+                <label for="businessPanDocument">Upload Business PAN Document:</label>
+                <input type="file" name="businessPanDocument" id="businessPanDocument" accept=".jpg,.jpeg,.png" required><br>
+                <label for="businessProfileImage">Upload Business Profile Image:</label>
+                <input type="file" name="businessProfileImage" id="businessProfileImage" accept=".jpg,.jpeg,.png" required><br>
+                <input type="submit" value="Signup">
+            </form>
+            <p>Already registered? <a href="#" id="showLogin">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
